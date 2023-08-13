@@ -128,6 +128,27 @@ void deleteNode(node **head_ref, int key)
 }
 
 /// Extra Functionality
+void reverse(node **head_ref)
+{
+    node *prev = NULL;
+    node *current = *head_ref;
+    node *next = NULL;
+
+    while (current != NULL)
+    {
+        // Save the next node
+        next = current->next;
+        // Reverse the current nodes link
+        current->next = prev;
+
+        // Slide position pointers forward
+        prev = current;
+        current = next;
+    }
+    // Change head pointer to that last node in the list
+    *head_ref = prev;
+}
+
 node *search(node **head_ref, int key)
 {
     node *temp = *head_ref;
@@ -220,6 +241,7 @@ int main()
     node *head = NULL;
 
     int Arr[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
     int size = sizeof(Arr) / sizeof(Arr[0]);
 
     for (int i = 0; i < size; i++)
@@ -254,6 +276,8 @@ int main()
 
     printList(head);
     deleteNode(&head, 420);
+    printList(head);
+    reverse(&head);
     printList(head);
 
     // Free Memory
