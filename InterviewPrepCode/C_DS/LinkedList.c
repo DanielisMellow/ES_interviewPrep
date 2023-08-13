@@ -59,36 +59,23 @@ node *Lsearch(node *head, int key)
     return NULL;
 }
 
-node *search(node **head, int key)
+void insert(node **head_ref, int index, int value)
 {
-    node *p = *head;
-    node *q = NULL;
-
-    while (p != NULL)
+    // Check if index is Valid
+    if (index < 0)
     {
-        if (key == p->data)
-        {
-            q->next = p->next;
-            p->next = *head;
-            *head = p;
-            return *head;
-        }
-
-        q = p;
-        p = p->next;
+        printf("Index: %d is invalid\n", index);
+        return;
     }
-    return NULL;
-}
 
-void insert(node **head, int index, int value)
-{
     node *new_node = createNode(value);
-    node *current = *head;
-    // If index is 0, inset at head
+    node *current = *head_ref;
+
+    // If index is 0, inset at head_ref
     if (index == 0)
     {
         new_node->next = current;
-        *head = new_node;
+        *head_ref = new_node;
         return;
     }
 
@@ -106,9 +93,72 @@ void insert(node **head, int index, int value)
     else
     {
         // If the index is greater than the number of elements, the node is added to the end
-        printf("Index exceeds the length of the list, appending at the end.\n");
-        append(head, value);
+        printf("Index %d exceeds the length of the list, appending at the end.\n", index);
+        append(head_ref, value);
     }
+}
+
+void deleteNode(node **head_ref, int key)
+{
+    node *temp = *head_ref;
+    node *prev = NULL;
+
+    // Deleting First Node
+    if (temp != NULL && temp->data == key)
+    {
+        *head_ref = temp->next;
+        free(temp);
+        return;
+    }
+
+    while (temp != NULL && temp->data != key)
+    {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == NULL)
+    {
+        printf("Key not found in linked list\n");
+        return;
+    }
+
+    prev->next = temp->next;
+    free(temp);
+}
+
+/// Extra Functionality
+node *search(node **head_ref, int key)
+{
+    node *temp = *head_ref;
+    node *prev = NULL;
+
+    while (temp != NULL)
+    {
+        if (key == temp->data)
+        {
+            prev->next = temp->next;
+            temp->next = *head_ref;
+            *head_ref = temp;
+            return *head_ref;
+        }
+
+        prev = temp;
+        temp = temp->next;
+    }
+    return NULL;
+}
+
+int count(node *head)
+{
+    int count = 0;
+    while (head != NULL)
+    {
+        count++;
+        head = head->next;
+    }
+
+    return count;
 }
 
 void displayR(node *head)
@@ -130,18 +180,6 @@ int add(node *head)
     }
 
     return sum;
-}
-
-int count(node *head)
-{
-    int count = 0;
-    while (head != NULL)
-    {
-        count++;
-        head = head->next;
-    }
-
-    return count;
 }
 
 int max(node *head)
@@ -212,20 +250,12 @@ int main()
         printf("Key Value does not exist in linked list\n");
     }
 
-    // keyLocation = search(&head, 4);
-    // if (keyLocation != NULL)
-    // {
-    //     printf("The Key Value %d is located at memory address: 0x%llx\n", key, (long long)keyLocation);
-    //     printList(keyLocation);
-    // }
-    // else
-    // {
-    //     printf("Key Value does not exist in linked list\n");
-    // }
-
     insert(&head, 3, 420);
 
     printList(head);
+    deleteNode(&head, 420);
+    printList(head);
+
     // Free Memory
     while (head != NULL)
     {
