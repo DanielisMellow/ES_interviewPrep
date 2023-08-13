@@ -47,6 +47,70 @@ void printList(node *head)
     printf("NULL\n");
 }
 
+node *Lsearch(node *head, int key)
+{
+    while (head != NULL)
+    {
+        if (key == head->data)
+            return head;
+        head = head->next;
+    }
+
+    return NULL;
+}
+
+node *search(node **head, int key)
+{
+    node *p = *head;
+    node *q = NULL;
+
+    while (p != NULL)
+    {
+        if (key == p->data)
+        {
+            q->next = p->next;
+            p->next = *head;
+            *head = p;
+            return *head;
+        }
+
+        q = p;
+        p = p->next;
+    }
+    return NULL;
+}
+
+void insert(node **head, int index, int value)
+{
+    node *new_node = createNode(value);
+    node *current = *head;
+    // If index is 0, inset at head
+    if (index == 0)
+    {
+        new_node->next = current;
+        *head = new_node;
+        return;
+    }
+
+    // Move Current pointer to index
+    for (int i = 0; i < (index - 1) && current != NULL; i++)
+    {
+        current = current->next;
+    }
+
+    if (current != NULL)
+    {
+        new_node->next = current->next;
+        current->next = new_node;
+    }
+    else
+    {
+        // If the index is greater than the number of elements, the node is added to the end
+        printf("Index exceeds the length of the list, appending at the end.\n");
+        append(head, value);
+    }
+}
+
 void displayR(node *head)
 {
     if (head != NULL)
@@ -67,6 +131,7 @@ int add(node *head)
 
     return sum;
 }
+
 int count(node *head)
 {
     int count = 0;
@@ -112,23 +177,11 @@ int min(node *head)
     return min;
 }
 
-node *search(node *head, int key)
-{
-    while (head != NULL)
-    {
-        if (key == head->data)
-            return head;
-        head = head->next;
-    }
-
-    return NULL;
-}
-
 int main()
 {
     node *head = NULL;
 
-    int Arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int Arr[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     int size = sizeof(Arr) / sizeof(Arr[0]);
 
     for (int i = 0; i < size; i++)
@@ -143,27 +196,40 @@ int main()
     printf("Max: %d\n", max(head));
     printf("Min: %d\n", min(head));
 
-    node *location = NULL;
+    node *keyLocation = NULL;
     int key = 4;
     printf("Searching for key: %d\n", key);
 
-    location = search(head, key);
+    keyLocation = Lsearch(head, key);
 
-    if (location != NULL)
+    if (keyLocation != NULL)
     {
-        printf("The Key Value %d is located at memory address: 0x%llx\n", key, (long long)location);
-        printList(location);
+        printf("The Key Value %d is located at memory address: 0x%llx\n", key, (long long)keyLocation);
+        printList(keyLocation);
     }
     else
     {
         printf("Key Value does not exist in linked list\n");
     }
 
+    // keyLocation = search(&head, 4);
+    // if (keyLocation != NULL)
+    // {
+    //     printf("The Key Value %d is located at memory address: 0x%llx\n", key, (long long)keyLocation);
+    //     printList(keyLocation);
+    // }
+    // else
+    // {
+    //     printf("Key Value does not exist in linked list\n");
+    // }
+
+    insert(&head, 3, 420);
+
+    printList(head);
     // Free Memory
-    node *temp;
     while (head != NULL)
     {
-        temp = head;
+        node *temp = head;
         head = head->next;
         free(temp);
     }
