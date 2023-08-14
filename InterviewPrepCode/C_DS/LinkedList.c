@@ -138,6 +138,7 @@ void reverse(node **head_ref)
     {
         // Save the next node
         next = current->next;
+
         // Reverse the current nodes link
         current->next = prev;
 
@@ -251,11 +252,6 @@ int main()
 
     printList(head);
 
-    printf("The Sum of Data in LinkedList %d\n", add(head));
-    printf("Number of nodes in linked list: %d\n", count(head));
-    printf("Max: %d\n", max(head));
-    printf("Min: %d\n", min(head));
-
     node *keyLocation = NULL;
     int key = 4;
     printf("Searching for key: %d\n", key);
@@ -274,10 +270,6 @@ int main()
 
     insert(&head, 3, 420);
 
-    printList(head);
-    deleteNode(&head, 420);
-    printList(head);
-    reverse(&head);
     printList(head);
 
     // Free Memory
