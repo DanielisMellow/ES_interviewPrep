@@ -237,20 +237,139 @@ int min(node *head)
     return min;
 }
 
+// This function checks if all elements in list1 can be found in list2
+int isSubsetGPT(node *list1, node *list2)
+{
+
+    // If both linked lists are empty, return true
+    if (list1 == NULL && list2 == NULL)
+        return 1;
+
+    // Else If one is empty and other is not return
+    // false
+    if (list1 == NULL ||
+        (list1 != NULL && list2 == NULL))
+        return 0;
+
+    node *ptr1 = list1;
+    node *ptr2 = list2;
+    // Iterate through all elements of list1
+    while (ptr1 != NULL)
+    {
+        ptr2 = list2;
+        while (ptr2 != NULL)
+        {
+            if (ptr1->data == ptr2->data)
+            {
+                break; // Element found in list2
+            }
+            ptr2 = ptr2->next;
+        }
+
+        // If element of list1 is not found in list2
+        if (ptr2 == NULL)
+        {
+            return 0; // list1 is not a subset of list2
+        }
+
+        ptr1 = ptr1->next;
+    }
+
+    return 1; // list1 is a subset of list2
+}
+
+void concatenate(node **head_ref, node *head2)
+{
+    if (head_ref == NULL)
+    {
+        *head_ref = head2;
+        return;
+    }
+    if (head2 == NULL)
+    {
+        return;
+    }
+
+    node *lastNode = *head_ref;
+    while (lastNode->next != NULL)
+    {
+        lastNode = lastNode->next;
+    }
+    lastNode->next = head2;
+}
+
+node *mergeSortedList(node *head1, node *head2)
+{
+    if (head1 == NULL)
+        return head2;
+    if (head2 == NULL)
+        return head1;
+
+    node *mergedHead = NULL;
+
+    // Chose the smaller head node to be the new head
+    if (head1->data < head2->data)
+    {
+        mergedHead = head1;
+        head1 = head1->next;
+    }
+    else
+    {
+        mergedHead = head2;
+        head2 = head2->next;
+    }
+
+    node *current = mergedHead;
+
+    while (head1 != NULL && head2 != NULL)
+    {
+        if (head1->data < head2->data)
+        {
+            current->next = head1;
+            head1 = head1->next;
+        }
+        else
+        {
+            current->next = head2;
+            head2 = head2->next;
+        }
+
+        current = current->next;
+    }
+
+    if (head1 != NULL)
+    {
+        current->next = head1;
+    }
+
+    if (head2 != NULL)
+    {
+        current->next = head2;
+    }
+
+    return mergedHead;
+}
+
 int main()
 {
     node *head = NULL;
-
-    int Arr[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int Arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
     int size = sizeof(Arr) / sizeof(Arr[0]);
-
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < size / 2; i++)
     {
-        append(&head, Arr[i]);
+        append(&head, Arr[(size - 1 - i)]);
     }
-
     printList(head);
+
+    // Creating second Linked List
+    node *head2 = NULL;
+    for (int i = 0; i < size + 1; i++)
+        append(&head2, i);
+
+    printList(head2);
+
+    (isSubsetGPT(head, head2)) ? printf("List 1 is Subset of list 2\n") : printf("Lists are not subsets\n");
 
     node *keyLocation = NULL;
     int key = 4;
@@ -261,7 +380,7 @@ int main()
     if (keyLocation != NULL)
     {
         printf("The Key Value %d is located at memory address: 0x%llx\n", key, (long long)keyLocation);
-        printList(keyLocation);
+        // printList(keyLocation);
     }
     else
     {
@@ -269,7 +388,6 @@ int main()
     }
 
     insert(&head, 3, 420);
-
     printList(head);
 
     // Free Memory
