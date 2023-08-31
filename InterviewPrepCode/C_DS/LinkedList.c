@@ -351,6 +351,23 @@ node *mergeSortedList(node *head1, node *head2)
     return mergedHead;
 }
 
+int hasLoop(node *head)
+{
+    node *tortoise = head;
+    node *hare = head;
+
+    while (tortoise != NULL && hare != NULL && hare->next != NULL)
+    {
+        tortoise = tortoise->next; // Move tortoise one step
+        hare = hare->next->next;   // Move hare two steps
+
+        if (tortoise == hare)
+            return 1; // loop found
+    }
+
+    return 0; // loop not found
+}
+
 int main()
 {
     node *head = NULL;
@@ -391,11 +408,24 @@ int main()
     insert(&head, 3, 420);
     printList(head);
 
+    reverse(&head);
+    printList(head);
+    // head->next->next->next = head->next;
+    // (hasLoop(head)) ? printf("There is a loop\n") : printf("There Is No Loop\n");
+
     // Free Memory
     while (head != NULL)
     {
         node *temp = head;
         head = head->next;
+        free(temp);
+    }
+
+    // Free Memory
+    while (head2 != NULL)
+    {
+        node *temp = head2;
+        head2 = head2->next;
         free(temp);
     }
 

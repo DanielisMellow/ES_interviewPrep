@@ -81,6 +81,6 @@ int main()
 
     printf("\nLinked list after deletion: ");
     printList(head);
-
+    printf("\n");
     return 0;
 }
