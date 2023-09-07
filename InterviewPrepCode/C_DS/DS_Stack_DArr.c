@@ -57,7 +57,7 @@ int pop(stack *s)
 
 int peek(stack s, int pos)
 {
-    if (pos >= s.size || pos < 0)
+    if (pos >= s.size || pos < 0 || isEmpty(&s))
         return INT32_MIN;
 
     else
@@ -79,11 +79,11 @@ int main()
         push(&S, i) != INT32_MIN ? printf("Pushed: %d\n", i) : printf("");
     }
 
-    // for (int i = 0; i < 10; i++)
-    // {
-    //     int item = pop(&S);
-    //     item != INT32_MIN ? printf("Popped: %d out of the stack\n", item) : printf("");
-    // }
+    for (int i = 0; i < 10; i++)
+    {
+        int item = pop(&S);
+        item != INT32_MIN ? printf("Popped: %d out of the stack\n", item) : printf("");
+    }
 
     int item3 = peek(S, 3);
     printf("\n\n %d \n", item3);
