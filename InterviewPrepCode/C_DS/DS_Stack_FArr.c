@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdint.h>
 
+
+// Hello from sal in neo vim
 #define MAX_SIZE 10
 
 typedef struct
