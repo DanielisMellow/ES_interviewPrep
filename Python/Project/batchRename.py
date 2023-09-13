@@ -1,11 +1,11 @@
 import os
 
-# sPath = "/home/lizardking/Videos/"
-sPath = "/home/lizardking/Documents/GitHub/ES_interviewPrep/Python/Project/Videos"
+sPath = "/home/lizardking/Videos/Movies/"
 
 tStrings = [
     ".2160p",
     ".1080p",
+    "1080p",
     ".4K",
     ".BluRay",
     ".1-[YTS.MX]",
@@ -17,6 +17,11 @@ tStrings = [
     ".AAC5",
     ".UNCUT",
     ".WEB",
+    ".YIFY",
+    ".DC",
+    ".REPACK",
+    ".HDR",
+    ".BrRip",
 ]
 
 

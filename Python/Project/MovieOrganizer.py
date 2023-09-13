@@ -2,7 +2,10 @@ import os
 import shutil
 
 sourcePath = "/home/lizardking/Downloads"
-destPath = "/home/lizardking/Videos"
+destPath = "/home/lizardking/Videos/"
+
+# destPath = "/home/lizardking/Videos/Movies/"
+# sourcePath = "/home/lizardking/Videos/"
 
 
 def move_videos(src: str, dest: str):
