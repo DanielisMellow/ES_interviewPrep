@@ -74,10 +74,15 @@ int main(int argc, char *argv[]) {
   stack st;
   initStack(&st);
 
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 8; i++) {
     push(&st, i);
   }
-  printf("Top Element: %d\n", peek(&st));
 
+  for (int i = 0; i < 10; i++) {
+
+    printf("Top Element: %d\n", pop(&st));
+  }
+
+  freeStack(&st);
   return 0;
 }
