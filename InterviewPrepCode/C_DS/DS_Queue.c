@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define MAX_SIZE 10
+#define MAX_SIZE 8
 
 typedef struct {
   int items[MAX_SIZE];
@@ -40,13 +40,15 @@ int dequeue(Queue *q) {
 int main() {
   Queue q;
   initialize(&q);
+  for (int i = 0; i < 16; i++) {
+    printf("Attempting to enqueue: %d\n", i);
+    enqueue(&q, i);
+  }
 
-  enqueue(&q, 1);
-  enqueue(&q, 2);
-  enqueue(&q, 3);
+  for (int i = 0; i < 16; i++) {
 
-  printf("Dequeued: %d\n", dequeue(&q));
-  printf("Dequeued: %d\n", dequeue(&q));
+    printf("Dequeued: %d\n", dequeue(&q));
+  }
 
   return 0;
 }
