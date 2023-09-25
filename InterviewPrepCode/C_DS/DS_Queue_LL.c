@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
   createQueue(&userQueue);
 
   for (int i = 0; i < 8; i++) {
-    enqueue(&userQueue, i * 2);
+    enqueue(&userQueue, i);
   }
 
   printf("The Front of the Queue %d\n", peek(userQueue));
