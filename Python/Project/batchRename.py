@@ -1,6 +1,6 @@
 import os
 
-sPath = "/home/lizardking/Videos/Movies/"
+sPath = "/home/lizardking/Videos/Movies/Movies"
 
 tStrings = [
     ".2160p",
