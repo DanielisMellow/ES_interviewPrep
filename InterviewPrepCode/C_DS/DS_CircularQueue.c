@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static int verbose = 0;
+static int verbose = 1;
 struct Queue {
   int *arr;
   int front;
@@ -73,7 +73,7 @@ int main() {
 
   for (int i = 0; i < 4; i++) {
     int data = dequeue(&circularQueue);
-    (data != INT_MIN) ? printf("Dequeued: %d\n", data) : printf("\n");
+    (data != INT_MIN) ? printf("Dequeued: %d\n", data) : printf("");
     if (verbose) {
       printf("Front: %d\t Rear: %d\n\n", circularQueue.front,
              circularQueue.rear);
