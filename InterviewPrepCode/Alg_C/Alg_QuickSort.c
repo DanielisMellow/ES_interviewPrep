@@ -15,12 +15,13 @@ int partition(int arr[], int low, int high) {
   int partitionIndex = low; // Set Partition Index as low initially
 
   for (int i = low; i < high; i++) {
-    if (arr[i] < pivot) {
+    if (arr[i] <= pivot) {
       // Swap current element if it is less than pivot
       swap(&arr[partitionIndex], &arr[i]);
       partitionIndex++; // Increment partition Index
     }
   }
+  // Place Pivot point in correct index
   swap(&arr[partitionIndex], &arr[high]);
   return partitionIndex;
 }

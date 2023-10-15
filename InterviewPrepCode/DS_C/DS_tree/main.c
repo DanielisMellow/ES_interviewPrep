@@ -215,14 +215,14 @@ void freeTree(node *root) {
 int main(int argc, char *argv[]) {
 
   node *root = NULL;
-  // int keyArr[] = {16, 4, 64, 2, 8, 32, 128};
-  // int size = sizeof(keyArr) / sizeof(keyArr[0]);
-  root = manualCreateTree(root);
+  int keyArr[] = {16, 4, 64, 2, 8, 32, 128};
+  int size = sizeof(keyArr) / sizeof(keyArr[0]);
+  // root = manualCreateTree(root);
 
-  // for (int i = 0; i < size; i++) {
-  //   root = insert(root, keyArr[i]);
-  // }
-  //
+  for (int i = 0; i < size; i++) {
+    root = insert(root, keyArr[i]);
+  }
+
   printf("Pre-Order:   ");
   preOrder(root);
 
