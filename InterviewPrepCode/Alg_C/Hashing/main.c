@@ -73,6 +73,17 @@ int main(int argc, char *argv[]) {
 
   printHashTable(table);
 
+  deleteKey(table, 0);
+
+  printf("\n");
+  printHashTable(table);
+
+  char *value = searchTable(table, 4);
+
+  if (value != NULL) {
+    printf("\nKey 4: %s\n", value);
+  }
+
   freeHashTable(table);
 
   return EXIT_SUCCESS;
