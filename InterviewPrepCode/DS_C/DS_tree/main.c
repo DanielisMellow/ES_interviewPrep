@@ -222,7 +222,7 @@ int main(int argc, char *argv[]) {
   for (int i = 0; i < size; i++) {
     root = insert(root, keyArr[i]);
   }
-  // delete (root, 16);
+  delete (root, 16);
   printf("Pre-Order:   ");
   preOrder(root);
 
