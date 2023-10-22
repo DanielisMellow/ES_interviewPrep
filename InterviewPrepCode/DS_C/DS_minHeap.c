@@ -10,6 +10,20 @@ typedef struct {
   int capacity;
 } min_heap;
 
+int isEmpty(min_heap *heap) { return heap->size == 0; }
+
+int parentIndx(int i) { return (i - 1) / 2; }
+
+int leftChildInx(int i) { return (2 * i) + 1; }
+
+int rightChildIndx(int i) { return (2 * i) + 2; }
+
+void swap(int *a, int *b) {
+  int temp = *a;
+  *a = *b;
+  *b = temp;
+}
+
 min_heap *createHeap() {
   min_heap *heap = (min_heap *)malloc(sizeof(min_heap));
   if (heap == NULL) {
@@ -29,21 +43,8 @@ min_heap *createHeap() {
   return heap;
 }
 
-int isEmpty(min_heap *heap) { return heap->size == 0; }
-
-int parentIndx(int i) { return (i - 1) / 2; }
-
-int leftChildInx(int i) { return (2 * i) + 1; }
-
-int rightChildIndx(int i) { return (2 * i) + 2; }
-
-void swap(int *a, int *b) {
-  int temp = *a;
-  *a = *b;
-  *b = temp;
-}
-
 void insert(min_heap *heap, int value) {
+  // Case where heap is full
   if (heap->size == heap->capacity) {
     // Double the capacity if full
     heap->capacity *= 2;
@@ -112,7 +113,7 @@ int main(int argc, char *argv[]) {
     printf("%d ", A[i]);
   }
   printf("\n\n\n");
-  printf("Items after insert: ");
+  printf("Items in the heap: ");
 
   for (int i = 0; i < heap->size; i++) {
     printf("%d ", heap->data[i]);
