@@ -126,26 +126,20 @@ node *delete(node *root, int data) {
     // (smallest in the right subtree)
     // node *temp = minValueNode(root->right);
 
-    // Copy the inorder successor's content to this node
-    // root->data = temp->data;
-
-    // Delete the inorder successor
-    // root->right = delete (root->right, temp->data);
-    
     // Decide if its better to use preccursor or successor
+
     int left = height(root->left); 
-    int right = height(root->right);
+    int right = height(root->right); 
+    
     if(left < right)
     {
         node *current = root->left;
         while(current && current->right != NULL)
         {
-            // choosing in order preccursor
+            // choosing preccursor
             current = current->right; 
         }
-        // copying data from preccursor to 'root'
         root->data = current->data;
-        // deleting the preccursor
         root->left = delete(root->left, current->data); 
     }
     else
@@ -153,14 +147,17 @@ node *delete(node *root, int data) {
         node *current = root->right; 
         while(current && current->left != NULL)
         {
-            // choosing in order successor
             current = current->left; 
         }
-        // copying data from successor to 'root'
         root->data = current->data; 
-        // deleting the successor
         root->right = delete(root->right, current->data); 
     }
+
+    // Copy the inorder successor's content to this node
+    // root->data = temp->data;
+
+    // Delete the inorder successor
+    // root->right = delete (root->right, temp->data);
   }
   return root;
 }
@@ -217,6 +214,7 @@ int countNodes(node *root_ref) {
 
   return countNodes(root_ref->left) + countNodes(root_ref->right) + 1;
 }
+
 
 int countLeafNodes(node *root_ref) {
   if (root_ref == NULL) {
@@ -275,18 +273,10 @@ int main(int argc, char *argv[]) {
   printf("Attempting to delete...\n"); 
   delete(root, 4); 
 
-  printf("Pre-Order:   ");
-  preOrder(root);
-
-  printf("\nIn-Order:    ");
-  inOrder(root);
-
-  printf("\nPost-Order:  ");
-  postOrder(root);
-
-  printf("\nLevel-Order: ");
-  levelOrder(root);
-  printf("\n");
+  preOrder(root); 
+  postOrder(root); 
+  inOrder(root); 
+  levelOrder(root); 
 
   freeTree(root);
   return EXIT_SUCCESS;
