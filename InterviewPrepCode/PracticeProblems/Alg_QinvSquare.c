@@ -13,9 +13,10 @@ float Q_rsqrt(float number) {
   i = *(int32_t *)&y;        // Evil Floating point bit level hacking
   i = 0x5f3759df - (i >> 1); // what the fuck
   y = *(float *)&i;
-  y = y * (threehalfs - (x2 * y * y)); // first iteration
-  // y = y *(threehalfs - (x2 *y *y)); //Second iteration can be remove can be
-  // removed
+  // 1st iteration newton method
+  y = y * (threehalfs - (x2 * y * y));
+  // 2nd iteration can be remove can be removed
+  // y = y *(threehalfs - (x2 *y *y));
 
   return y;
 }
