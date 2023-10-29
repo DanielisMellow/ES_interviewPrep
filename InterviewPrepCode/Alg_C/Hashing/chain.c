@@ -27,7 +27,7 @@ void sortedInsert(node **head_ref, unsigned int key, const char *value) {
   node *currentNode = *head_ref;
 
   // To Deal if new node belongs at the begining
-  if (*head_ref == NULL || (*head_ref)->key > key) {
+  if (*head_ref == NULL || key < (*head_ref)->key) {
     *head_ref = new_node;
     return;
   }
