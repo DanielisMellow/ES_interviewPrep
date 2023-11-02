@@ -32,7 +32,7 @@ void sortedInsert(node **head_ref, unsigned int key, const char *value) {
     return;
   }
 
-  while (currentNode->next && currentNode->next->key < new_node->key) {
+  while (currentNode->next && new_node->key > currentNode->next->key) {
     currentNode = currentNode->next;
   }
   new_node->next = currentNode->next;
@@ -55,7 +55,7 @@ void printList(node *head) {
 }
 
 node *search(node *head, int key) {
-  while (head != NULL && head->key <= key) {
+  while (head != NULL && key >= head->key) {
     if (head->key == key)
       return head;
 
@@ -70,13 +70,13 @@ void deleteNode(node **head_ref, unsigned int key) {
   node *prev = NULL;
 
   // Deleting First Node
-  if (temp != NULL && temp->key == key) {
+  if (temp != NULL && key == temp->key) {
     *head_ref = temp->next;
     free(temp);
     return;
   }
 
-  while (temp != NULL && temp->key < key) {
+  while (temp != NULL && key > temp->key) {
     prev = temp;
     temp = temp->next;
   }
