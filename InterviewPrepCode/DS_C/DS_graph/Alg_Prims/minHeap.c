@@ -1,4 +1,5 @@
 #include "minHeap.h"
+#include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,6 +11,24 @@ int parentIndx(int i) { return (i - 1) / 2; }
 int leftChildInx(int i) { return (2 * i) + 1; }
 
 int rightChildIndx(int i) { return (2 * i) + 2; }
+
+// A utility function to create a new Min Heap Node
+MinHeapNode *newMinHeapNode(int vertex, int weight) {
+  MinHeapNode *minHeapNode = (MinHeapNode *)malloc(sizeof(MinHeapNode));
+  minHeapNode->vertex = vertex;
+  minHeapNode->weight = weight;
+  return minHeapNode;
+}
+
+// A utility function to create a Min Heap
+MinHeap *createMinHeap(int capacity) {
+  MinHeap *minHeap = (MinHeap *)malloc(sizeof(MinHeap));
+  minHeap->pos = (int *)malloc(capacity * sizeof(int));
+  minHeap->size = 0;
+  minHeap->capacity = capacity;
+  minHeap->array = (MinHeapNode **)malloc(capacity * sizeof(MinHeapNode *));
+  return minHeap;
+}
 
 void freeMinHeap(MinHeap *minHeap) {
 
@@ -28,14 +47,6 @@ void freeMinHeap(MinHeap *minHeap) {
 }
 
 // =============================================================
-// A utility function to create a new Min Heap Node
-MinHeapNode *newMinHeapNode(int vertex, int weight) {
-  MinHeapNode *minHeapNode = (MinHeapNode *)malloc(sizeof(MinHeapNode));
-  minHeapNode->vertex = vertex;
-  minHeapNode->weight = weight;
-  return minHeapNode;
-}
-
 // A utility function to swap two nodes of min heap. Needed for min heapify
 void swapMinHeapNode(MinHeapNode **a, MinHeapNode **b) {
   MinHeapNode *t = *a;
@@ -70,16 +81,6 @@ void insert(MinHeap *minHeap, int vertex, int weight) {
 
   // Increment the size of the heap
   minHeap->size++;
-}
-
-// A utility function to create a Min Heap
-MinHeap *createMinHeap(int capacity) {
-  MinHeap *minHeap = (MinHeap *)malloc(sizeof(MinHeap));
-  minHeap->pos = (int *)malloc(capacity * sizeof(int));
-  minHeap->size = 0;
-  minHeap->capacity = capacity;
-  minHeap->array = (MinHeapNode **)malloc(capacity * sizeof(MinHeapNode *));
-  return minHeap;
 }
 // A standard function to heapify at given idx
 // This function also updates position of nodes when they are swapped.
@@ -117,27 +118,29 @@ void minHeapify(MinHeap *minHeap, int idx) {
 // A utility function to check if a given minHeap is empty or not
 int isEmpty(MinHeap *minHeap) { return minHeap->size == 0; }
 
-// Standard function to extract minimum node from heap
-MinHeapNode *extractMin(MinHeap *minHeap) {
+// Standard function to extract minimum vertex from heap
+int extractMin(MinHeap *minHeap) {
   if (isEmpty(minHeap))
-    return NULL;
+    return INT_MIN;
 
-  // Store the root node
+  // Store the root node and last node
   MinHeapNode *root = minHeap->array[0];
-
-  // Replace root node with last node
   MinHeapNode *lastNode = minHeap->array[minHeap->size - 1];
-  minHeap->array[0] = lastNode;
 
-  // Update position of last node
+  // Store the root node vertex
+  int rootV = root->vertex;
+
+  // Swap postions of root node and last node
   minHeap->pos[root->vertex] = minHeap->size - 1;
   minHeap->pos[lastNode->vertex] = 0;
+
+  swapMinHeapNode(&minHeap->array[0], &minHeap->array[minHeap->size - 1]);
 
   // Reduce heap size and heapify root
   --minHeap->size;
   minHeapify(minHeap, 0);
 
-  return root;
+  return rootV;
 }
 
 // Function to decrease weight value of a given vertex vertex. This function

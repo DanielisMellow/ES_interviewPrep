@@ -37,8 +37,8 @@ void minHeapify(MinHeap *minHeap, int idx);
 // A utility function to check if a given minHeap is empty or not
 int isEmpty(MinHeap *minHeap);
 
-// Standard function to extract minimum node from heap
-MinHeapNode *extractMin(MinHeap *minHeap);
+// Standard function to extract minimum vertex
+int extractMin(MinHeap *minHeap);
 
 // Function to decrease weight value of a given vertex vertex. This function
 // uses pos[] of min heap to get the current index of node in min heap

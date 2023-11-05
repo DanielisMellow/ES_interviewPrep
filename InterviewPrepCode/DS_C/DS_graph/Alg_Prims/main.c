@@ -5,65 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define V 5 // Number of vertices
-
-// A utility function used to print the constructed MST
-void printArr(int arr[], int graph[V][V], int n) {
-  printf("Edge   Weight\n");
-  for (int i = 1; i < n; ++i)
-    printf("%d - %d    %d \n", arr[i], i, graph[i][arr[i]]);
-}
-
-void primMST(int graph[V][V]) {
-  // Array to store constructed MST
-  int parent[V];
-
-  // Key values used to pick minimum weight edge in cut
-  int key[V];
-
-  // To represent set of vertices not yet included in MST
-  MinHeap *minHeap = createMinHeap(V);
-
-  // Initialize min heap with all vertices. Key value of all vertices (except
-  // 0th vertex) is initially infinite
-  for (int v = 1; v < V; ++v) {
-    parent[v] = -1;
-    key[v] = INT_MAX;
-    minHeap->array[v] = newMinHeapNode(v, key[v]);
-    minHeap->pos[v] = v;
-  }
-
-  // Make key value of 0th vertex as 0 so that it is extracted first
-  key[0] = 0;
-  minHeap->array[0] = newMinHeapNode(0, key[0]);
-  minHeap->pos[0] = 0;
-
-  // Initially size of min heap is equal to V
-  minHeap->size = V;
-
-  // In the following loop, min heap contains all nodes not yet added in MST.
-  while (!isEmpty(minHeap)) {
-    // Extract the vertex with minimum key value
-    MinHeapNode *minHeapNode = extractMin(minHeap);
-    int u = minHeapNode->vertex; // Store the extracted vertex number
-
-    // Traverse through all adjacent vertices of u (the extracted vertex) and
-    // update their key values
-    for (int v = 0; v < V; ++v) {
-      // If v is not yet included in MST and weight of u-v is less than key
-      // value of v, then update key value and parent of v
-      if (graph[u][v] && isInMinHeap(minHeap, v) && graph[u][v] < key[v]) {
-        key[v] = graph[u][v];
-        parent[v] = u;
-        decreaseKey(minHeap, v, key[v]);
-      }
-    }
-  }
-
-  // print edges of MST
-  printArr(parent, graph, V);
-}
-
 void printMST(int parent[], graph *g) {
   if (g == NULL || parent == NULL) {
     printf("NULL");
@@ -74,11 +15,12 @@ void printMST(int parent[], graph *g) {
     printf("%d - %d\t%d\n", parent[i], i, g->adjMatrix[i][parent[i]]);
   }
 }
-void PRIM(graph *g) {
+
+void primMST(graph *g) {
   if (g == NULL) {
     return;
   }
-  // To represent the set of vertices no yest included in the MST
+  // To represent the set of vertices no yet included in the MST
   MinHeap *minHeap = createMinHeap(g->numVertices);
 
   // Array To store the constructed MST
@@ -97,10 +39,8 @@ void PRIM(graph *g) {
 
   while (!isEmpty(minHeap)) {
     // Extract The vertex with minumum key value
-    MinHeapNode *minNode = extractMin(minHeap);
-
     // Store the extracted vertex number
-    int u = minNode->vertex;
+    int u = extractMin(minHeap);
 
     // Travere through all adjacence vertices of u and update their values
     for (int v = 0; v < g->numVertices; v++) {
@@ -120,13 +60,7 @@ void PRIM(graph *g) {
 
   free(parent);
   free(weight);
-  // freeMinHeap(minHeap);
-
-  /*   for (int i = 0; i < minHeap->capacity; i++) {
-
-      printf("%d, %d\n", minHeap->array[i]->vertex, minHeap->array[i]->weight);
-      printf("Addrs:  %p\n", minHeap->array[i]);
-    } */
+  freeMinHeap(minHeap);
 }
 
 // Driver program to test above functions
@@ -158,7 +92,7 @@ int main(int argc, char *argv[]) {
 
   printGraph(mainGraph);
   printf("\n\n");
-  PRIM(mainGraph);
+  primMST(mainGraph);
 
   freeGraph(mainGraph);
 
