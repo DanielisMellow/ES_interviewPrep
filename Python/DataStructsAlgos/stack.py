@@ -25,7 +25,6 @@ class Stack:
         return str(self.items)
 
 
-
 if __name__ == "__main__":
     s = Stack()
     for nums in range(0, 10, 1):
@@ -37,4 +36,3 @@ if __name__ == "__main__":
         print(s)
 
     print(s.size())
-
