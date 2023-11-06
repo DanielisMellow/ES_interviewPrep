@@ -19,21 +19,19 @@ class PriorityQueue:
 
 
 if __name__ == "__main__":
-	pq = PriorityQueue()
-	print(pq)
-	print(pq.is_empty())
+    pq = PriorityQueue()
+    print(pq)
+    print(pq.is_empty())
 
     # item, priority
-	# pq.put("eat", 2)
-	# pq.put("code", 1)
-	# pq.put("sleep", 3)
+    # pq.put("eat", 2)
+    # pq.put("code", 1)
+    # pq.put("sleep", 3)
+    pq.put("eat", 3)
+    pq.put("code", 2)
+    pq.put("smash", 1)
 
-	pq.put("eat", 3)
-	pq.put("code", 2)
-	pq.put("smash", 1)
-
-	
-	print(pq)
-	print(pq.get())
-	print(pq.get())
-	print(pq.get())
+    print(pq)
+    print(pq.get())
+    print(pq.get())
+    print(pq.get())
