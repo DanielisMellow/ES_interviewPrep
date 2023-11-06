@@ -65,13 +65,15 @@ void primMST(graph *g) {
 int main(int argc, char *argv[]) {
 
   /* Let us create the following graph
-     2    3
+         2    3
      (0)--(1)--(2)
      |    / \   |
-     6|  8/   \5 |7
-     |  /      \ |
+    6|  8/   \5 |7
+     |  /     \ |
      (3)-------(4)
-     9          */
+          9
+  */
+
   int adjMatrix[5][5] = {{0, 2, 0, 6, 0},
                          {2, 0, 3, 8, 5},
                          {0, 3, 0, 0, 7},
