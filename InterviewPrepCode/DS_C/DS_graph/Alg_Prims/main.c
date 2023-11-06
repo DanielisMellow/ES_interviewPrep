@@ -22,10 +22,8 @@ void primMST(graph *g) {
   }
   // To represent the set of vertices no yet included in the MST
   MinHeap *minHeap = createMinHeap(g->numVertices);
-
   // Array To store the constructed MST
   int *parent = (int *)calloc(g->numVertices, sizeof(int));
-
   // key values used to pick the the minimum edge weight
   int *weight = (int *)calloc(g->numVertices, sizeof(int));
 
