@@ -111,6 +111,19 @@ void freeList(node *head_ref) {
   }
 }
 
+// int main(void) {
+//     node *head = NULL; 
+//     unsigned int index = 4; 
+//
+//     sortedInsert(&head, 3, "C"); 
+//     sortedInsert(&head, 2, "B"); 
+//     sortedInsert(&head, 1, "A");  
+//     sortedInsert(&head, 4, "D"); 
+//     printList(head); 
+//     printf("\n"); 
+//     return 0; 
+// }
+
 /* int main(int argc, char *argv[]) {
 
   node *head = NULL;
