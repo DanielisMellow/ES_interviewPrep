@@ -21,15 +21,18 @@ void display(HashTable *ht);
 int main() {
   HashTable *ht = createHashTable();
 
-  insert(ht, 1, 100);
+  insert(ht, 0, 100);
   insert(ht, 2, 200);
   insert(ht, 3, 300);
   insert(ht, 13, 1300);
+  insert(ht, 10, 10000); 
 
   display(ht);
 
+  printf("Key 0 has value: %d\n", search(ht , 0)); 
   printf("Key 3 has value: %d\n", search(ht, 3));
   printf("Key 13 has value: %d\n", search(ht, 13));
+  printf("Key 10 has value: %d\n", search(ht, 10)); 
 
   free(ht);
   return 0;
