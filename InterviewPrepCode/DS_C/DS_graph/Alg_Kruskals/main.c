@@ -18,11 +18,11 @@ void KruskalMST(graph *g) {
   int e = 0;      // An index variable, used for result[]
   int i = 0;      // An index variable, used for sorted edges
 
+  DisjointSet *subsets = makeSet(V);
+
   // Step 1:  Sort all the edges in non-decreasing order of their weight
   qsort(g->edges, g->amountE, sizeof(g->edges[0]), myComp);
   // printGraphTable(g);
-
-  DisjointSet *subsets = makeSet(V);
 
   // Number of edges to be taken is equal to V-1
   while (e < V - 1 && i < g->amountE) {
