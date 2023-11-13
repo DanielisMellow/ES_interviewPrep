@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
   graph *mainGraph = createGraph(numVertices);
 
   for (int i = 0; i < numVertices; i++) {
-    for (int j = 0; j < numVertices; j++) {
+    for (int j = i; j < numVertices; j++) {
       addEdge(mainGraph, i, j, adjMatrix[i][j]);
     }
   }
