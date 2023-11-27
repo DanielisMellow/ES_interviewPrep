@@ -100,49 +100,33 @@ void startDFS(graph *g, int startVertex) {
 }
 
 int main(int argc, char *argv[]) {
-  int V = 5;
 
-  graph *mainGraph = createGraph(V);
+  int adjMatrix[5][5] = {{0, 0, 1, 1, 0},
+                         {0, 0, 1, 0, 0},
+                         {1, 1, 0, 1, 1},
+                         {1, 0, 1, 0, 1},
+                         {0, 0, 1, 1, 0}};
 
-  /* addEdge(mainGraph, 0, 1);
-  addEdge(mainGraph, 0, 2);
-  addEdge(mainGraph, 0, 3);
+  int numVertices = 5;
 
-  addEdge(mainGraph, 1, 2);
-  addEdge(mainGraph, 1, 0);
+  graph *mainGraph = createGraph(numVertices);
 
-  addEdge(mainGraph, 2, 0);
-  addEdge(mainGraph, 2, 1);
+  for (int i = 0; i < numVertices; i++) {
+    for (int j = i; j < numVertices; j++) {
+      if (adjMatrix[i][j] != 0) {
 
-  addEdge(mainGraph, 3, 0);
- */
-
-  addEdge(mainGraph, 0, 1);
-  addEdge(mainGraph, 0, 2);
-  addEdge(mainGraph, 0, 3);
-
-  addEdge(mainGraph, 1, 0);
-  addEdge(mainGraph, 1, 2);
-
-  addEdge(mainGraph, 2, 0);
-  addEdge(mainGraph, 2, 1);
-  addEdge(mainGraph, 2, 3);
-  addEdge(mainGraph, 2, 4);
-
-  addEdge(mainGraph, 3, 0);
-  addEdge(mainGraph, 3, 2);
-  addEdge(mainGraph, 3, 4);
-
-  addEdge(mainGraph, 4, 2);
-  addEdge(mainGraph, 4, 3);
+        addEdge(mainGraph, i, j);
+      }
+    }
+  }
 
   printGraph(mainGraph);
+  int startingVertex = 4;
+  printf("\nBFS starting at:%d\n", startingVertex);
+  BFS(mainGraph, startingVertex);
 
-  printf("\nBreadth First Search\n");
-  BFS(mainGraph, 4);
-
-  printf("\nDepth First Search\n");
-  startDFS(mainGraph, 4);
+  printf("\nDFS starting at:%d\n", startingVertex);
+  startDFS(mainGraph, startingVertex);
 
   freeGraph(mainGraph);
 
