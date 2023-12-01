@@ -57,7 +57,8 @@ void freeGraph(graph *g) {
 void BFS(graph *g, int startVertex) {
   queue q;
   createQueue(&q, g->numVertices);
-  bool *visited = (bool *)calloc(g->numVertices, sizeof(bool));
+  // bool *visited = (bool *)calloc(g->numVertices, sizeof(bool));
+    bool visited[g->numVertices]; 
 
   visited[startVertex] = true;
   enqueue(&q, startVertex);
@@ -78,8 +79,29 @@ void BFS(graph *g, int startVertex) {
     }
   }
 
-  free(visited);
+  // free(visited);
   freeQueue(&q);
+}
+
+void DFS(graph *g, int vertex, bool visited[]) {
+    visited[vertex] = 1; 
+    printf("Visited vertex: %d\n", vertex); 
+
+    node *temp = g->adjList[vertex]; 
+    while(temp != NULL) {
+        int adjVertex = temp->vertex; 
+        if (!visited[adjVertex]) {
+            DFS(g, adjVertex, visited); 
+        }
+        temp = temp->next; 
+    }
+}
+
+void _DFS(graph *g, int startVertex) {
+    // bool *visited = (bool *)calloc(g->numVertices, sizeof(bool));
+    bool visited[g->numVertices]; 
+
+    DFS(g, startVertex, visited); 
 }
 
 int main(int argc, char *argv[]) {
@@ -87,7 +109,7 @@ int main(int argc, char *argv[]) {
 
   graph *mainGraph = createGraph(V);
 
-  addEdge(mainGraph, 0, 1);
+  // addEdge(mainGraph, 0, 1);
   addEdge(mainGraph, 0, 2);
   addEdge(mainGraph, 0, 3);
 
@@ -103,6 +125,9 @@ int main(int argc, char *argv[]) {
   int startVertex = 4;
   printf("\nBreadth First Search\nStarting from Vertex:%d\n", startVertex);
   BFS(mainGraph, startVertex);
+
+  printf("\nDepth First Search\nStarting from Vertex:%d\n", startVertex);
+  _DFS(mainGraph, startVertex);
 
   freeGraph(mainGraph);
   return EXIT_SUCCESS;

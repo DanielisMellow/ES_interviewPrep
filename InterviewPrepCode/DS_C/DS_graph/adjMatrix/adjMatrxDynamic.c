@@ -14,6 +14,10 @@ typedef struct Graph graph;
 
 graph *createGraph(int numVertices) {
   graph *newGraph = (graph *)malloc(sizeof(graph));
+  if(!(newGraph)) {
+      printf("Could not create graph.\n"); 
+      return NULL; 
+  }
   newGraph->numVertices = numVertices;
 
   newGraph->adjMatrix = (int **)malloc(numVertices * sizeof(int *));
@@ -57,7 +61,8 @@ void BFS(graph *g, int startVertex) {
 
   queue q;
   createQueue(&q, g->numVertices);
-  bool *visited = (bool *)calloc(g->numVertices, sizeof(bool));
+  // bool *visited = calloc(g->numVertices, sizeof(bool)); 
+  bool visited[g->numVertices];
 
   visited[startVertex] = true;
   enqueue(&q, startVertex);
@@ -76,7 +81,6 @@ void BFS(graph *g, int startVertex) {
     }
   }
   freeQueue(&q);
-  free(visited);
 }
 
 void DFS(graph *g, int vertex, bool visited[]) {
@@ -92,11 +96,11 @@ void DFS(graph *g, int vertex, bool visited[]) {
 
 void startDFS(graph *g, int startVertex) {
   // Keep track of the visited vertices
-  bool *visited = (bool *)calloc(g->numVertices, sizeof(bool));
+  bool visited[g->numVertices]; 
+  // bool *visited = calloc(g->numVertices, sizeof(bool)); 
 
   DFS(g, startVertex, visited);
 
-  free(visited);
 }
 
 int main(int argc, char *argv[]) {
