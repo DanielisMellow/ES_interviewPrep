@@ -61,8 +61,7 @@ void BFS(graph *g, int startVertex) {
 
   queue q;
   createQueue(&q, g->numVertices);
-  // bool *visited = calloc(g->numVertices, sizeof(bool)); 
-  bool visited[g->numVertices];
+  bool *visited = calloc(g->numVertices, sizeof(bool)); 
 
   visited[startVertex] = true;
   enqueue(&q, startVertex);
@@ -80,6 +79,7 @@ void BFS(graph *g, int startVertex) {
       }
     }
   }
+  free(visited); 
   freeQueue(&q);
 }
 
@@ -96,11 +96,11 @@ void DFS(graph *g, int vertex, bool visited[]) {
 
 void startDFS(graph *g, int startVertex) {
   // Keep track of the visited vertices
-  bool visited[g->numVertices]; 
-  // bool *visited = calloc(g->numVertices, sizeof(bool)); 
+  bool *visited = calloc(g->numVertices, sizeof(bool)); 
 
   DFS(g, startVertex, visited);
 
+  free(visited); 
 }
 
 int main(int argc, char *argv[]) {

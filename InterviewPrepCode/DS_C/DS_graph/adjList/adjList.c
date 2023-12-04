@@ -57,8 +57,7 @@ void freeGraph(graph *g) {
 void BFS(graph *g, int startVertex) {
   queue q;
   createQueue(&q, g->numVertices);
-  // bool *visited = (bool *)calloc(g->numVertices, sizeof(bool));
-    bool visited[g->numVertices]; 
+  bool *visited = (bool *)calloc(g->numVertices, sizeof(bool));
 
   visited[startVertex] = true;
   enqueue(&q, startVertex);
@@ -79,7 +78,7 @@ void BFS(graph *g, int startVertex) {
     }
   }
 
-  // free(visited);
+  free(visited);
   freeQueue(&q);
 }
 
@@ -98,10 +97,10 @@ void DFS(graph *g, int vertex, bool visited[]) {
 }
 
 void _DFS(graph *g, int startVertex) {
-    // bool *visited = (bool *)calloc(g->numVertices, sizeof(bool));
-    bool visited[g->numVertices]; 
+    bool *visited = (bool *)calloc(g->numVertices, sizeof(bool));
 
     DFS(g, startVertex, visited); 
+    free(visited); 
 }
 
 int main(int argc, char *argv[]) {
