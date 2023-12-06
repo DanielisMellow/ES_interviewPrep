@@ -100,6 +100,10 @@ void _DFS(graph *g, int startVertex) {
     bool *visited = (bool *)calloc(g->numVertices, sizeof(bool));
 
     DFS(g, startVertex, visited); 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
     free(visited); 
 }
 
