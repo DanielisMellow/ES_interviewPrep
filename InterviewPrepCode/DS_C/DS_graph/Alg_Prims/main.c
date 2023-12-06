@@ -24,13 +24,13 @@ void primMST(graph *g) {
   MinHeap *minHeap = createMinHeap(g->numVertices);
   // Array To store the constructed MST
   int *parent = (int *)calloc(g->numVertices, sizeof(int));
-  // key values used to pick the the minimum edge weight
-  int *weight = (int *)calloc(g->numVertices, sizeof(int));
+  // Cost values used to pick the the minimum edge weight
+  int *cost = (int *)calloc(g->numVertices, sizeof(int));
 
   for (int u = 0; u < g->numVertices; u++) {
-    weight[u] = INT_MAX;
+    cost[u] = INT_MAX;
     parent[u] = -1;
-    insert(minHeap, u, weight[u]);
+    insert(minHeap, u, cost[u]);
   }
 
   decreaseKey(minHeap, 0, 0);
@@ -45,9 +45,9 @@ void primMST(graph *g) {
       // If v is not yet included in MST and the weight of u-v is less than
       // weight value of v, then update the key and parent of v
       if (g->adjMatrix[u][v] && isInMinHeap(minHeap, v) &&
-          g->adjMatrix[u][v] < weight[v]) {
+          g->adjMatrix[u][v] < cost[v]) {
 
-        weight[v] = g->adjMatrix[u][v];
+        cost[v] = g->adjMatrix[u][v];
         parent[v] = u;
         decreaseKey(minHeap, v, g->adjMatrix[u][v]);
       }
@@ -57,7 +57,7 @@ void primMST(graph *g) {
   printMST(parent, g);
 
   free(parent);
-  free(weight);
+  free(cost);
   freeMinHeap(minHeap);
 }
 
