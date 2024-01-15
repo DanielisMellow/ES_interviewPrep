@@ -14,7 +14,8 @@ int myComp(const void *a, const void *b) {
 // The main function to construct MST using Kruskal's algorithm
 void KruskalMST(graph *g) {
   int V = g->amountV;
-  edge result[V]; // Tnis will store the resultant MST
+
+  edge result[V]; // This will store the resultant MST
   int e = 0;      // An index variable, used for result[]
   int i = 0;      // An index variable, used for sorted edges
 
@@ -22,6 +23,8 @@ void KruskalMST(graph *g) {
 
   // Step 1:  Sort all the edges in non-decreasing order of their weight
   qsort(g->edges, g->amountE, sizeof(g->edges[0]), myComp);
+
+  // printf("\n\n");
   // printGraphTable(g);
 
   // Number of edges to be taken is equal to V-1
