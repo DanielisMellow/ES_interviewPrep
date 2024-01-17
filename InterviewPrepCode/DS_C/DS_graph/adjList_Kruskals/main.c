@@ -11,8 +11,8 @@ int compare_val(const void *a, const void *b) {
 void kruskal_mst(Graph *graph, Edges *edge_array) {
     int total_vertices = graph->vertex_amount; 
     Edges result[total_vertices];
-    int r = 0; 
-    int i = 0; 
+    int r = 0; // <-- index variable used for result[] 
+    int i = 0; // <-- index variable used for edge_array[] 
 
     Disjoint_Set *sub_set = make_set(total_vertices); 
 
