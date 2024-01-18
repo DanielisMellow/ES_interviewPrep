@@ -23,9 +23,8 @@ void KruskalMST(graph *g) {
 
   // Step 1:  Sort all the edges in non-decreasing order of their weight
   qsort(g->edges, g->amountE, sizeof(g->edges[0]), myComp);
-
-  // printf("\n\n");
-  // printGraphTable(g);
+  printf("\n\n");
+  printGraphTable(g);
 
   // Number of edges to be taken is equal to V-1
   while (e < V - 1 && i < g->amountE) {
