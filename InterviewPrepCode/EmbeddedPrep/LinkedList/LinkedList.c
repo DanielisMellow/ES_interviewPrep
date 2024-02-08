@@ -71,7 +71,7 @@ int hasLoop(list userList) {
   node *hare = userList.head;
   node *tortoise = userList.head;
 
-  while (hare->next == NULL && hare != NULL) {
+  while (hare->next != NULL && hare != NULL) {
 
     tortoise = tortoise->next; // Move tortoise one step
     hare = hare->next->next;   // Move hare two steps
@@ -84,9 +84,36 @@ int hasLoop(list userList) {
   return 0;
 }
 
+node *startLoopNode(node *head) {
+  node *tortoise = head;
+  node *hare = head;
+
+  while (hare != NULL && hare->next != NULL) {
+    tortoise = tortoise->next; // Move tortoise one step
+    hare = hare->next->next;   // Move hare two steps
+
+    if (tortoise == hare)
+      break; // loop found
+  }
+
+  if (hare != tortoise) {
+    return NULL;
+  }
+
+  tortoise = head;
+
+  while (tortoise != hare) {
+    tortoise = tortoise->next;
+    hare = hare->next;
+  }
+
+  return tortoise; // loop not found
+}
+
 int main(int argc, char *argv[]) {
 
   list mainList;
+
   initList(&mainList);
 
   for (int i = 0; i < 5; i++) {
