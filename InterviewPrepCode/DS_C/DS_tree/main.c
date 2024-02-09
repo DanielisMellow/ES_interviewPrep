@@ -131,35 +131,30 @@ node *delete(node *root, int data) {
 
     // Delete the inorder successor
     // root->right = delete (root->right, temp->data);
-    
+
     // Decide if its better to use preccursor or successor
-    int left = height(root->left); 
+    int left = height(root->left);
     int right = height(root->right);
-    if(left < right)
-    {
-        node *current = root->left;
-        while(current && current->right != NULL)
-        {
-            // choosing in order preccursor
-            current = current->right; 
-        }
-        // copying data from preccursor to 'root'
-        root->data = current->data;
-        // deleting the preccursor
-        root->left = delete(root->left, current->data); 
-    }
-    else
-    {
-        node *current = root->right; 
-        while(current && current->left != NULL)
-        {
-            // choosing in order successor
-            current = current->left; 
-        }
-        // copying data from successor to 'root'
-        root->data = current->data; 
-        // deleting the successor
-        root->right = delete(root->right, current->data); 
+    if (left < right) {
+      node *current = root->left;
+      while (current && current->right != NULL) {
+        // choosing in order preccursor
+        current = current->right;
+      }
+      // copying data from preccursor to 'root'
+      root->data = current->data;
+      // deleting the preccursor
+      root->left = delete (root->left, current->data);
+    } else {
+      node *current = root->right;
+      while (current && current->left != NULL) {
+        // choosing in order successor
+        current = current->left;
+      }
+      // copying data from successor to 'root'
+      root->data = current->data;
+      // deleting the successor
+      root->right = delete (root->right, current->data);
     }
   }
   return root;
@@ -242,12 +237,11 @@ void freeTree(node *root) {
   free(root);
 }
 
-
 int main(int argc, char *argv[]) {
 
   node *root = NULL;
   int keyArr[] = {16, 4, 5, 64, 2, 8, 32, 128};
-  
+
   int size = sizeof(keyArr) / sizeof(keyArr[0]);
   // root = manualCreateTree(root);
 
@@ -272,8 +266,8 @@ int main(int argc, char *argv[]) {
   printf("The Height of the tree: %d\n", height(root));
   printf("The Number of leaf nodes in the tree: %d\n", countLeafNodes(root));
 
-  printf("Attempting to delete...\n"); 
-  delete(root, 4); 
+  printf("Attempting to delete...\n");
+  delete (root, 4);
 
   printf("Pre-Order:   ");
   preOrder(root);
