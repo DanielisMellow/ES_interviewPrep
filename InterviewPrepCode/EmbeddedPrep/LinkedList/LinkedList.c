@@ -1,17 +1,7 @@
+#include "LinkedList.h"
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-struct Node {
-  int data;
-  struct Node *next;
-};
-typedef struct Node node;
-
-struct LinkedList {
-  node *head;
-};
-typedef struct LinkedList list;
 
 void initList(list *userList) { userList->head = NULL; }
 int isEmpty(list *userList) { return userList->head == NULL; }
@@ -60,72 +50,4 @@ void printList(list userList) {
   }
 
   printf("NULL \n");
-}
-
-int hasLoop(list userList) {
-  if (userList.head == NULL) {
-    printf("Empty List\n");
-    return -1;
-  }
-
-  node *hare = userList.head;
-  node *tortoise = userList.head;
-
-  while (hare->next != NULL && hare != NULL) {
-
-    tortoise = tortoise->next; // Move tortoise one step
-    hare = hare->next->next;   // Move hare two steps
-
-    if (tortoise == hare) {
-      return 1;
-    }
-  }
-
-  return 0;
-}
-
-node *startLoopNode(node *head) {
-  node *tortoise = head;
-  node *hare = head;
-
-  while (hare != NULL && hare->next != NULL) {
-    tortoise = tortoise->next; // Move tortoise one step
-    hare = hare->next->next;   // Move hare two steps
-
-    if (tortoise == hare)
-      break; // loop found
-  }
-
-  if (hare != tortoise) {
-    return NULL;
-  }
-
-  tortoise = head;
-
-  while (tortoise != hare) {
-    tortoise = tortoise->next;
-    hare = hare->next;
-  }
-
-  return tortoise; // loop not found
-}
-
-int main(int argc, char *argv[]) {
-
-  list mainList;
-
-  initList(&mainList);
-
-  for (int i = 0; i < 5; i++) {
-    addNode(&mainList, i);
-    printList(mainList);
-  }
-
-  for (int i = 0; i < 5; i++) {
-    removeNode(&mainList);
-
-    printList(mainList);
-  }
-
-  return EXIT_SUCCESS;
 }
