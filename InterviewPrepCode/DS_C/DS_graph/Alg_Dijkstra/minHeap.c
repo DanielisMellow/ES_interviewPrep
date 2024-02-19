@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define CAPACITY 100 // initial capacity
 
@@ -48,6 +49,7 @@ void freeMinHeap(MinHeap *minHeap) {
 
 // =============================================================
 // A utility function to swap two nodes of min heap. Needed for min heapify
+
 void swapMinHeapNode(MinHeapNode **a, MinHeapNode **b) {
   MinHeapNode *t = *a;
   *a = *b;
@@ -60,7 +62,6 @@ void insert(MinHeap *minHeap, int vertex, int weight) {
     printf("HEAP IS FULL\n");
     return;
   }
-
   // insert the new node at the end
   int i = minHeap->size;
   minHeap->array[i] = newMinHeapNode(vertex, weight);
@@ -70,8 +71,11 @@ void insert(MinHeap *minHeap, int vertex, int weight) {
          minHeap->array[i]->weight < minHeap->array[parentIndx(i)]->weight) {
 
     // swap position in pos[]
-    minHeap->pos[i] = parentIndx(i);
-    minHeap->pos[parentIndx(i)] = i;
+    int start = minHeap->array[i]->vertex;
+    int parent = minHeap->array[parentIndx(i)]->vertex;
+
+    minHeap->pos[start] = parent;
+    minHeap->pos[parent] = start;
 
     // Swap the nodes
     swapMinHeapNode(&minHeap->array[parentIndx(i)], &minHeap->array[i]);
@@ -154,14 +158,15 @@ void decreaseKey(MinHeap *minHeap, int vertex, int weight) {
 
   // Travel up while the complete tree is not heapified.
   // This is a O(Logn) loop
-  while (i && minHeap->array[i]->weight < minHeap->array[(i - 1) / 2]->weight) {
+  while (i &&
+         minHeap->array[i]->weight < minHeap->array[parentIndx(i)]->weight) {
     // Swap this node with its parent
-    minHeap->pos[minHeap->array[i]->vertex] = (i - 1) / 2;
-    minHeap->pos[minHeap->array[(i - 1) / 2]->vertex] = i;
-    swapMinHeapNode(&minHeap->array[i], &minHeap->array[(i - 1) / 2]);
+    minHeap->pos[minHeap->array[i]->vertex] = parentIndx(i);
+    minHeap->pos[minHeap->array[parentIndx(i)]->vertex] = i;
+    swapMinHeapNode(&minHeap->array[i], &minHeap->array[parentIndx(i)]);
 
     // move to parent index
-    i = (i - 1) / 2;
+    i = parentIndx(i);
   }
 }
 
