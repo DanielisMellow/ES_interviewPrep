@@ -45,8 +45,10 @@ void insert_to_heap(Min_Heap *heap, unsigned int vertex, int weight) {
 
     // find corrent position for new node
     while(i != 0 && heap->array[i]->weight < heap->array[parent_index(i)]->weight) {
-       heap->pos[i] = parent_index(i); 
-       heap->pos[parent_index(i)] = i; 
+       int child = heap->array[i]->vertex;  
+       int parent = heap->array[parent_index(i)]->vertex; 
+       heap->pos[child] = parent; 
+       heap->pos[parent] = child; 
 
        swap_nodes(&heap->array[parent_index(i)], &heap->array[i]); 
 

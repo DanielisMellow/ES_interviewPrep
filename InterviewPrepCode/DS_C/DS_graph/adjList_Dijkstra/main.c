@@ -60,8 +60,8 @@ void dijkstra_alg(graph *graph, int starting_vertex) {
   while (!(is_heap_empty(min_heap))) {
     int u = extract_min(min_heap);
     for (int v = 0; v < graph->vertex_amount; v++) {
-      node *u_v = find_the_node(graph, u, v);
-      if (!(u_v)) {
+      node *u_v;  
+      if ((u_v = find_the_node(graph, u, v)) == NULL) {
         continue;
       }
       int tmp_distance = distance[u] + u_v->weight;
