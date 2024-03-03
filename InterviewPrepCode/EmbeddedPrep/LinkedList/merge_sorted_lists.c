@@ -34,7 +34,7 @@ void print_list(node *head) {
     printf("[ %d ] -> ", head->data);
     head = head->next;
   }
-  printf("\n");
+  printf("NULL\n");
 }
 
 node *merge_sorted(node *head1, node *head2) {
@@ -89,6 +89,35 @@ node *merge_sorted(node *head1, node *head2) {
   return merged_head;
 }
 
+node *merge_sorted_V2(node *head1, node *head2) {
+  node *dummy = (node *)malloc(sizeof(node));
+  if (dummy == NULL) {
+    return NULL;
+  }
+  node *tail = dummy;
+
+  while (head1 != NULL && head2 != NULL) {
+    if (head1->data < head2->data) {
+      tail->next = head1;
+      head1 = head1->next;
+    } else {
+      tail->next = head2;
+      head2 = head2->next;
+    }
+    tail = tail->next;
+  }
+
+  if (!(head1)) {
+    tail->next = head2;
+  } else if (!(head2)) {
+    tail->next = head1;
+  }
+
+  node *finalHead = dummy->next;
+  free(dummy);
+  return finalHead;
+}
+
 int main(void) {
   node *head1 = NULL;
   node *head2 = NULL;
@@ -110,7 +139,7 @@ int main(void) {
   node *merged_list = NULL;
 
   printf("Merged List.\n");
-  merged_list = merge_sorted(head1, head2);
+  merged_list = merge_sorted_V2(head1, head2);
 
   print_list(merged_list);
   return 0;

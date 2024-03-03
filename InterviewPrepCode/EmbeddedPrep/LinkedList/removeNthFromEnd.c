@@ -12,7 +12,6 @@ int removeNthFromEnd(list *ll, int n) {
   }
 
   int length = 0;
-
   node *tmpA = ll->head;
 
   while (tmpA != NULL) {
@@ -23,7 +22,6 @@ int removeNthFromEnd(list *ll, int n) {
   tmpA = ll->head;
   node *tmpB = ll->head;
   int target = length - n;
-  length = 0;
   int data;
 
   if (target == 0) {
@@ -33,10 +31,9 @@ int removeNthFromEnd(list *ll, int n) {
     return data;
   }
 
-  while (tmpA != NULL && length < target) {
+  for (int i = 0; i < target; i++) {
     tmpB = tmpA;
     tmpA = tmpA->next;
-    length++;
   }
   if (target > 0) {
     data = tmpA->data;
@@ -60,7 +57,7 @@ int main(int argc, char *argv[]) {
 
   int targetNode = 2;
   removeNthFromEnd(&mainList, targetNode);
-  printf("Removing node %d from the end\n", targetNode);
+  printf("\nRemoving node %d from the end:\n", targetNode);
   printList(mainList);
 
   return EXIT_SUCCESS;
