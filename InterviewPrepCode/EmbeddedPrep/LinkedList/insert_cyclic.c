@@ -87,6 +87,8 @@ node *cyclic_insert(node *head, int data) {
 }
 
 node *cyclic_insert_sort(node *head, node *new_node) {
+  // check if new_node is NULL
+  if(!(new_node)) { return head; }
   // check if list is empty if it is,
   // make new node head and next is itself
   if (!(head)) {
@@ -101,7 +103,7 @@ node *cyclic_insert_sort(node *head, node *new_node) {
   while (a->next != head) {
     // if at any point in traversing the list, the new node's
     // correct spot is in between a and a->next, then add it and return
-    if (a->next->data > new_node->data && a->data < new_node->data) {
+    if (a->next->data > new_node->data && a->data <= new_node->data) {
       new_node->next = a->next;
       a->next = new_node;
       return head;
