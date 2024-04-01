@@ -44,11 +44,53 @@ void print_matrix_diagonal(int m[MAX][MAX], int size) {
   }
 }
 
+void print_matrix_diagonalV1(int m[MAX][MAX], int size) {
+  int rows = size, cols = size;
+  int cur_row = 0, cur_col = 0;
+  bool is_up = true;
+  int counter = 0;
+
+  while (counter != rows * cols) {
+    if (is_up) {
+      while (cur_row >= 0 && cur_col < cols) {
+        printf("%d ", m[cur_row][cur_col]);
+        counter++;
+        cur_row--;
+        cur_col++;
+      }
+      if (cur_col == cols) {
+        cur_col--;
+        cur_row += 2;
+      } else {
+        cur_row++;
+      }
+    } else {
+      while (cur_row < size && cur_col >= 0) {
+
+        printf("%d ", m[cur_row][cur_col]);
+
+        counter++;
+        cur_row++;
+        cur_col--;
+      }
+      if (cur_row == rows) {
+        cur_col += 2;
+        cur_row--;
+      } else {
+        cur_col++;
+      }
+    }
+    is_up = !is_up;
+  }
+}
+
 int main(int argc, char *argv[]) {
 
   int Matrix[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 
   int n = 3;
   print_matrix_diagonal(Matrix, n);
+  printf("\n");
+  print_matrix_diagonalV1(Matrix, n);
   return EXIT_SUCCESS;
 }
