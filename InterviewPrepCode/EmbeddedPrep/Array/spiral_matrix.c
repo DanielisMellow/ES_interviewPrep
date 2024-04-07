@@ -4,7 +4,7 @@
 int const ROW = 3;
 int const COL = 3;
 
-void diagonal_print(int m[ROW][COL]) {
+void spiral_print(int m[ROW][COL]) {
 
   int left_bound = 0;
   int right_bound = COL;
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
 
   int Matrix[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 
-  diagonal_print(Matrix);
+  spiral_print(Matrix);
 
   int n = 3;
   return EXIT_SUCCESS;
