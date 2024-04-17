@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void print_arr(int *arr, int size) {
 
@@ -58,6 +59,11 @@ int main(void) {
   int size = sizeof(A) / sizeof(A[0]);
   print_arr(A, size);
 
+  char msg[] = "HelloWorld!\n";
+
+  printf("%s\n", msg);
+  printf("Size:%lu\n", sizeof(msg));
+  printf("Strlen:%lu\n", strlen(msg));
   for (int i = size - 1; i >= 0; i--) {
     print_eq_triangle(A[i]);
   }
